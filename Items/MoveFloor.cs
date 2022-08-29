@@ -29,6 +29,27 @@ public class MoveFloor : MonoBehaviour
         return myVelocity;
     }
 
+    //床との接触開始時処理、メソッド呼び出し 8/25追記
+    //プレイヤー側で速度制御により動く床に乗れるようになった！ 08/28追記
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //if(collision.gameObject.tag == "Player")
+        //{
+            //collision.transform.SetParent(transform);
+            //Debug.Log("子要素へ");
+        //}
+    }
+
+    //接触解除時処理、メソッド呼び出し　8/25追記
+    //プレイヤー側で速度制御により動く床に乗れるようになった！ 08/28追記
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //if(collision.gameObject.tag == "Player")
+        //{
+            //collision.transform.SetParent(null);
+        //}
+    }
+
     private void FixedUpdate()
     {
         if (movePoint != null && movePoint.Length > 1 && rb != null)
@@ -90,8 +111,4 @@ public class MoveFloor : MonoBehaviour
 
         }
     }
-
-
-
-
 }

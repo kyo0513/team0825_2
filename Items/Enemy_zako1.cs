@@ -100,7 +100,7 @@ public class Enemy_zako1 : MonoBehaviour
 
      private void OnTriggerEnter2D(Collider2D collision)
      {
-        if (collision.tag == "Stage" || collision.tag == "Enemy")
+        if (collision.tag == "Ground" || collision.tag == "Enemy")
         {
             isOn = true;
         }
@@ -108,7 +108,7 @@ public class Enemy_zako1 : MonoBehaviour
 
      private void OnTriggerExit2D(Collider2D collision)
      {
-        if (collision.tag == "Stage" || collision.tag == "Enemy")
+        if (collision.tag == "Ground" || collision.tag == "Enemy")
         {
             isOn = false;
             //isOn = !isOn;
