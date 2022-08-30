@@ -41,14 +41,15 @@ public class Player : MonoBehaviour
     private bool isClearMotion = false;
     private float jumpPos      = 0.0f;
     //private float jumpTime  = 0.0f;
-    private float otherJumpHeight   = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float otherJumpSpeed  = 0.0f;
     //private float dashTime, jumpTime;
     private float dashTime     = 0.0f;
     private float jumpTime     = 0.0f;
     private string enemyTag    = "Enemy";
     private float beforeKey    = 0.0f;
-    private float continueTime  = 0.0f;
-    private float blinkTime     = 0.0f;
+    private float continueTime = 0.0f;
+    private float blinkTime    = 0.0f;
 
     //ゲームオーバー処理追加 08/27
     private bool nonDownAnim    = false;
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
     private string hitAreaTag   = "HitArea";
     private string moveFloorTag = "Move";
     private string fallFloorTag = "Fall";
-
+    private string jumpStepTag  = "JumpStep";
 
     void Start()
     {
@@ -92,10 +93,10 @@ public class Player : MonoBehaviour
             //1秒たったら明滅終わり
             if (continueTime > 1.0f)
             {
-                isContinue = false;
-                blinkTime = 0.0f;
+                isContinue   = false;
+                blinkTime    = 0.0f;
                 continueTime = 0.0f;
-                sr.enabled = true;
+                sr.enabled   = true;
             }
             else
             {
@@ -167,7 +168,8 @@ public class Player : MonoBehaviour
 
             if (canHeight && canTime && !isHead)
             {
-                ySpeed   = jumpSpeed;
+                //ySpeed   = jumpSpeed;
+                ySpeed    = otherJumpSpeed;
                 jumpTime += Time.deltaTime;
             }
             else
@@ -205,12 +207,12 @@ public class Player : MonoBehaviour
 
             if (pushUpKey && canHeight && canTime && !isHead)
             {
-                ySpeed = jumpSpeed;
+                ySpeed    = jumpSpeed;
                 jumpTime += Time.deltaTime;
             }
             else
             {
-                isJump = false;
+                isJump   = false;
                 jumpTime = 0.0f;
             }
         }
@@ -224,25 +226,26 @@ public class Player : MonoBehaviour
     private float GetXSpeed()
     {
         float horizontalKey = Input.GetAxis("Horizontal");
-        float xSpeed = 0.0f;
+        float xSpeed        = 0.0f;
+
         if (horizontalKey > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
-            isRun = true;
-            dashTime += Time.deltaTime;
-            xSpeed = speed;
+            isRun      = true;
+            dashTime  += Time.deltaTime;
+            xSpeed     = speed;
         }
         else if (horizontalKey < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
-            isRun = true;
-            dashTime += Time.deltaTime;
-            xSpeed = -speed;
+            isRun      = true;
+            dashTime  += Time.deltaTime;
+            xSpeed     = -speed;
         }
         else
         {
-            isRun = false;
-            xSpeed = 0.0f;
+            isRun    = false;
+            xSpeed   = 0.0f;
             dashTime = 0.0f;
         }
 
@@ -255,13 +258,11 @@ public class Player : MonoBehaviour
         {
             dashTime = 0.0f;
         }
-        beforeKey = horizontalKey;
 
-        xSpeed *= dashCurve.Evaluate(dashTime);
+        xSpeed   *= dashCurve.Evaluate(dashTime);
         beforeKey = horizontalKey;
         return xSpeed;
     }
-
     
     /// アニメーションを設定する
     private void SetAnimation()
@@ -356,9 +357,11 @@ public class Player : MonoBehaviour
         bool enemy     = (collision.collider.tag == enemyTag);
         bool moveFloor = (collision.collider.tag == moveFloorTag);
         bool fallFloor = (collision.collider.tag == fallFloorTag);
+        bool jumpStep  = (collision.collider.tag == jumpStepTag);
 
         //if (collision.collider.tag == enemyTag)
-        if (enemy || moveFloor || fallFloor)
+        //if (enemy || moveFloor || fallFloor)
+        if (enemy || moveFloor || fallFloor || jumpStep)
         {
             //踏みつけ判定になる高さ
             float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
@@ -370,15 +373,18 @@ public class Player : MonoBehaviour
             {
                 if (p.point.y < judgePos)
                 {
-                    if (enemy || fallFloor)
+                    //if (enemy || fallFloor)
+                    if (enemy || fallFloor || jumpStep)
                     {
                         Enemy1 o = collision.gameObject.GetComponent<Enemy1>();
                                         
                         if (o != null)
                         {
-                            if (enemy)
+                            //if (enemy)
+                            if (enemy || jumpStep)
                             {
                                 otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                                otherJumpSpeed  = o.jumpSpeed;
                                 o.playerStepOn  = true;             //踏んづけたものに対して踏んづけた事を通知する
                                 jumpPos = transform.position.y;     //ジャンプした位置を記録する 
                                 isOtherJump     = true;
@@ -472,8 +478,8 @@ public class Player : MonoBehaviour
     {
         if(collision.tag == deadAreaTag)
 	    {
-            nonDownAnim    = true;
-            isDown         = true;
+            //nonDownAnim    = true; 08/30　なぜコメント化に？
+            //isDown         = true; 08/30  なぜコメント化に？
             GameController.instance.Zerolife();
             //ReceiveDamage(false);
 	    }
