@@ -58,7 +58,7 @@ public class carpet : MonoBehaviour
         //プレイヤーが1回でも乗ったらフラグをオンに
         if (oc.playerStepOn)
         {
-            Debug.Log("乗った");
+            //Debug.Log("乗った");
             isOn = true;
             oc.playerStepOn = false;
         }
@@ -78,7 +78,6 @@ public class carpet : MonoBehaviour
         }
 
         //一定時間たつと明滅して戻ってくる
-
         if (isReturn)
         {
             //明滅　ついている時に戻る
@@ -110,8 +109,7 @@ public class carpet : MonoBehaviour
             {
                 blinkTimer += Time.deltaTime;
                 returnTimer += Time.deltaTime;
-            }
-            
+            }            
         }
     }
 
@@ -121,7 +119,6 @@ public class carpet : MonoBehaviour
         if (isFall)
         {
             rb.velocity = fallVelocity;
-
             //一定時間たつと元の位置に戻る
             if (fallingTimer > returnTime)
             {

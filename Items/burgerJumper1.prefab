@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5257931800580885754}
   - component: {fileID: 5257931800580885753}
   - component: {fileID: 5257931800580885752}
-  - component: {fileID: 5257931800580885759}
+  - component: {fileID: -2921943095184520548}
+  - component: {fileID: 3568581157635358407}
   m_Layer: 0
   m_Name: burgerJumper1
   m_TagString: Untagged
@@ -182,7 +183,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5257931800580885759
+--- !u!114 &-2921943095184520548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,6 +192,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5257931800580885758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e61c0fc82eb0d4c9a1d4943da19bd9, type: 3}
+  m_Script: {fileID: 11500000, guid: 907093a7e3a9c95469c28fd495f891f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundHeight: 0
+  jumpSpeed: 0
+  playerStepOn: 0
+--- !u!114 &3568581157635358407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5257931800580885758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a82ca58a235f6479c638f3b8e4d67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

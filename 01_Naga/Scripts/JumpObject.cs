@@ -10,22 +10,22 @@ public class JumpObject : MonoBehaviour
     {
         
         oc = GetComponent<Enemy1>();
-        /*
+        
         anim = GetComponent<Animator>();
         if(oc == null || anim == null)
         {
             Debug.Log("ジャンプ台の設定が足りていません");
             Destroy(this);
         }
-        */
+        
     }
 
     void Update()
     {
         if (oc.playerStepOn)
         {
-            Debug.Log("ジャンプ台に乗った");
-            //anim.SetTrigger("on");
+            //Debug.Log("ジャンプ台に乗った");
+            anim.SetTrigger("on");
             oc.playerStepOn = false;
         }
     }

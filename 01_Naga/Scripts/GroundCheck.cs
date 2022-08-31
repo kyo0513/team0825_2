@@ -8,11 +8,14 @@ public class GroundCheck : MonoBehaviour
     private string groundTag    = "Ground";
     private string platformTag  = "GroundPlatform";
     private string moveFloorTag = "Move";
+    private string fallFloorTag = "Fall";
+
+
     private bool isGround       = false;
     private bool isGroundEnter, isGroundStay, isGroundExit;
 
-     //接地判定を返すメソッド
-　　　//物理判定の更新毎に呼ぶ必要がある
+    //接地判定を返すメソッド
+　　//物理判定の更新毎に呼ぶ必要がある
     public bool IsGround()
     {    
         if (isGroundEnter || isGroundStay)
@@ -39,7 +42,7 @@ public class GroundCheck : MonoBehaviour
             isGroundEnter = true;
         }
         //以下移動床用に追加
-        else if(checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+        else if(checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag || collision.tag == fallFloorTag ))
         {
             isGroundEnter = true;
         }
@@ -52,7 +55,7 @@ public class GroundCheck : MonoBehaviour
             isGroundStay = true;
         }
         ////以下移動床用に追加
-        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag || collision.tag == fallFloorTag))
         {
             isGroundStay = true;
         }
@@ -65,7 +68,7 @@ public class GroundCheck : MonoBehaviour
             isGroundExit = true;
         }
         ////以下移動床用に追加
-        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag || collision.tag == fallFloorTag))
         {
             isGroundExit = true;
         }

@@ -39,6 +39,12 @@ public class Player : MonoBehaviour
     private bool isOtherJump   = false;
     private bool isContinue    = false;
     private bool isClearMotion = false;
+
+    ////  はしご処理追加　08/31  ///////
+    private bool isCliming     = false;
+    public LayerMask laddarLayer;
+    //////////////////////////////////
+
     private float jumpPos      = 0.0f;
     //private float jumpTime  = 0.0f;
     private float otherJumpHeight = 0.0f;
@@ -61,6 +67,7 @@ public class Player : MonoBehaviour
     private string moveFloorTag = "Move";
     private string fallFloorTag = "Fall";
     private string jumpStepTag  = "JumpStep";
+
 
     void Start()
     {
@@ -103,7 +110,41 @@ public class Player : MonoBehaviour
                 blinkTime    += Time.deltaTime;
                 continueTime += Time.deltaTime;
             }
-        } 
+        }    
+
+        //お試しはしご処理 08/31
+        /*
+        float x = Input.GetAxisRaw("Horizontal"); //方向キーのx方向の入力
+        float y = Input.GetAxisRaw("Vertical");   //方向キーのy方向の入力
+        rb.velocity = new Vector2(x*speed, rb.velocity.y);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position,Vector2.up, 2, laddarLayer );
+        if(hitInfo.collider != null)
+        {
+            Debug.Log("はしご");
+            if(y>0)
+            {
+                //・Playerが上を押している
+                isCliming = true;
+            }
+        }
+        else        
+        {
+            isCliming = false; 
+        }
+        //if 上に登れるなら
+        if(isCliming)
+        {
+            //上にのぼる
+            rb.velocity = new Vector2(rb.velocity.x, y*speed);
+            rb.gravityScale = 0;
+        }
+        else
+        {
+            rb.gravityScale = 5;
+        }
+        */
+
+
     } 
 
     void FixedUpdate()
